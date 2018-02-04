@@ -17,4 +17,12 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true}
 });
 
+userSchema.post('save', function(error, doc, next) {
+  if (error.name === 'MongoError') {
+    next(new Error('There was a duplicate key error'));
+  } else {
+    next(error);
+  }
+});
+
 module.exports = mongoose.model('User', userSchema);

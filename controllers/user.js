@@ -6,11 +6,11 @@ const mongoose = require("mongoose"),
 const User = require("../models/user");
 
 exports.signup = (req, res) => {
-  User.find({ email: req.body.email }, (err, users) => {
+  User.findOne({$or:[{username: req.body.username}, {email: req.body.email}]}, (err, user) => {
     if (err) {
       apiRepsonse.sendError(err, 500, res);
     }
-    if (users && users.length >= 1) {
+    if (user) {
       apiRepsonse.sendError("User exists", 409, res);
     } 
     else {

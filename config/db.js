@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
       chalk = require('chalk');
 
 module.exports = (config) => {
-  mongoose.connect(config.db);
+  mongoose.connect(config.db, { useMongoClient: true });
   const db = mongoose.connection;
 
   db.on('error', () => {
