@@ -1,5 +1,8 @@
-const routes = require('../routes/index');
+const index = require('../routes/index'),
+      user = require('../routes/user');
 
 module.exports = (app) => {
-  app.use('/api/1.0', routes);
+  app.use('/', index);
+  app.use('/api/1.0', index);
+  app.use('/api/1.0/user', user);
 };

@@ -5,7 +5,6 @@ function toLower(v) {
 }
 
 const userSchema = mongoose.Schema({
-  name: {type: String, required: true},
   username: {type: String, required: true, unique: true, set: toLower},
   email: { 
     type: String, 
@@ -19,7 +18,7 @@ const userSchema = mongoose.Schema({
 
 userSchema.post('save', function(error, doc, next) {
   if (error.name === 'MongoError') {
-    next(new Error('There was a duplicate key error'));
+    next(new Error('A Mongo DB error occured'));
   } else {
     next(error);
   }
